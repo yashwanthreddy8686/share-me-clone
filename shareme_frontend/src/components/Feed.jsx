@@ -21,9 +21,13 @@ function Feed() {
       client.fetch(query).then((data) => {
         setPins(data);
         setLoading(false);
+        console.log(data);
       })
     } else{
-
+      client.fetch(feedQuery).then((data) => {
+        setPins(data);
+        setLoading(false);
+      })
     }
   },[categoryId])
 
@@ -31,7 +35,9 @@ function Feed() {
     return <Spinner message= {`we are adding new ideas to your feed`} />
   }
   return (
-    <div>Feed</div>
+    <div>
+      {pins && <MasonryLayout pins={pins}/>}
+    </div>
   )
 }
 

@@ -3,31 +3,28 @@ export const userQuery = (userId) => {
   return query;
 };
 
-export const feedQuery = () => {
-  const query = `*[_type == "pin"] | order(_createAt desc){ 
-    image{
-      asset -> {
-        url
-      }
-    },
-    _id,
-    destination,
-    postedBy -> {
+export const feedQuery = `*[_type == "pin"] | order(_createdAt desc) {
+  image{
+    asset->{
+      url
+    }
+  },
       _id,
-      userName,
-      image
-    },
-    save[]{
-      _key,
-      postedBy -> {
+      destination,
+      postedBy->{
         _id,
         userName,
         image
       },
-    }
-  }`;
-  return query;
-};
+      save[]{
+        _key,
+        postedBy->{
+          _id,
+          userName,
+          image
+        },
+      },
+    } `;
 
 export const searchQuery = (searchTerm) => {
   const query = `*[_type == "pin" && category match '${searchTerm}*' || title match '${searchTerm}*' || about match '${searchTerm}*']{
